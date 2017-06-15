@@ -9,5 +9,5 @@ setup(name='prange',
       author_email='nagolinc@gmail.com',
       url='https://github.com/nagolinc/prange',
       py_modules=['prange'],
-      data_files=[('data',['data/*.txt'])]
+      data_files=[('data',['data/adventure.txt'])]
      )
