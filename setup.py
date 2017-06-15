@@ -2,11 +2,12 @@
 
 from distutils.core import setup
 
-setup(name='tqdm',
-      version='1.0',
-      description='A Simple Python Progress Meter',
-      author='Noam Yorav-Raphael',
-      author_email='noamraph@gmail.com',
-      url='https://github.com/noamraph/tqdm',
-      py_modules=['tqdm'],
+setup(name='prange',
+      version='0.1',
+      description='A Complex Python Progress Meter',
+      author='Logan Zoellner',
+      author_email='nagolinc@gmail.com',
+      url='https://github.com/nagolinc/prange',
+      py_modules=['prange'],
+      data_files=[('data',['data/*.txt'])]
      )

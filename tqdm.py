@@ -2,6 +2,7 @@ __all__ = ['tqdm', 'trange']
 
 import sys
 import time
+from parseStory import expandDescription,adventureRules
 
 
 def format_interval(t):
@@ -45,11 +46,17 @@ class StatusPrinter(object):
     def __init__(self, file):
         self.file = file
         self.last_printed_len = 0
+        self.last_n_lines=0
     
     def print_status(self, s):
+    	self.file.write("\033[2K")
+    	for i in range(self.last_n_lines-1):
+			self.file.write("\033[F")
+			self.file.write("\033[2K")
         self.file.write('\r'+s+' '*max(self.last_printed_len-len(s), 0))
         self.file.flush()
         self.last_printed_len = len(s)
+        self.last_n_lines=len(s.split("\n"))
 
 
 def tqdm(iterable, desc='', total=None, leave=False, file=sys.stderr,
@@ -112,3 +119,48 @@ def trange(*args, **kwargs):
         f = range
     
     return tqdm(f(*args), **kwargs)
+    
+    
+def prange(iterable, desc='', total=None, leave=False, file=sys.stderr,
+         mininterval=0.5, miniters=1):
+    """
+    Like tqdm, but prints a funny status message
+    """
+    #tqdm code
+    if total is None:
+        try:
+            total = len(iterable)
+        except TypeError:
+            total = None
+    
+    prefix = desc+': ' if desc else ''
+    
+    sp = StatusPrinter(file)
+    sp.print_status(prefix + format_meter(0, total, 0))
+    
+    start_t = last_print_t = time.time()
+    last_print_n = 0
+    n = 0
+    for obj in iterable:
+        yield obj
+        # Now the object was created and processed, so we can print the meter.
+        n += 1
+        if n - last_print_n >= miniters:
+            # We check the counter first, to reduce the overhead of time.time()
+            cur_t = time.time()
+            if cur_t - last_print_t >= mininterval:
+            	#generate a new adventure action
+            	suffix=expandDescription("event",adventureRules)
+            	#output text
+                sp.print_status(prefix + format_meter(n, total, cur_t-start_t)+"\n"+suffix)
+                last_print_n = n
+                last_print_t = cur_t
+    
+    if not leave:
+        sp.print_status('')
+        sys.stdout.write('\r')
+    else:
+        if last_print_n < n:
+            cur_t = time.time()
+            sp.print_status(prefix + format_meter(n, total, cur_t-start_t))
+        file.write('\n')
