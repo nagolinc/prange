@@ -6,12 +6,10 @@ Generate a progress bar (based off of tqdm), but with amusing text to go along w
 
 For example
 
-'''
-
+```
 |########--| 81/100  81% [elapsed: 01:21 left: 00:19,  1.00 iters/sec]
 You happen upon a fight betwen a Portuguese man o' war and an African leopard!
-
-'''
+```
 
 The text is generated using a simplified language that allows you to:
 1) Randomly choose between different sentences
@@ -19,7 +17,7 @@ The text is generated using a simplified language that allows you to:
 
 A bit of a specialized markup for this looks like
 
-'''
+```
 
 animal
   lion
@@ -29,7 +27,7 @@ animal
 event
   You see [animal.aAn]
   
-'''
+```
 
 This would generate sentences like "You see a bear"
 
