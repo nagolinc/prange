@@ -470,16 +470,17 @@ animal
     Zuniga's dark rice rat
 
 
-
+horde
+	horde
+	group
+	swarm
+	mass
+	army
 
 attackEvent
-  Suddenly you are attacked by a [animal]
-
-
-
-
-
-
+  Suddenly you are attacked by [animal.aAn]!
+  Suddenly [horde.aAn] of [animal.plural] attacks you!
+  You happen upon a fight betwen [animal1.aAn:animal] and [animal2.aAn:animal]!
 
 event
   [attackEvent]
