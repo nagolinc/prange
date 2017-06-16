@@ -1,33 +1,81 @@
-tqdm
+prange
 ====
 
-Instantly make your loops show a progress meter - just wrap any iterator with "tqdm(iterator)", and you're done!
+Generate a progress bar (based off of tqdm), but with amusing text to go along with it.
 
-![ScreenShot](https://i.imgur.com/he9Aw5C.gif)
 
-tqdm (read ta<i>qa</i>dum, تقدّم) means "progress" in arabic.
+For example
 
-You can also use trange(N) as a shortcut for tqdm(xrange(N))
+'''
 
-Here's the doc:
+|########--| 81/100  81% [elapsed: 01:21 left: 00:19,  1.00 iters/sec]
+You happen upon a fight betwen a Portuguese man o' war and an African leopard!
 
-```python
-def tqdm(iterable, desc='', total=None, leave=False, mininterval=0.5, miniters=1):
-    """
-    Get an iterable object, and return an iterator which acts exactly like the
-    iterable, but prints a progress meter and updates it every time a value is
-    requested.
-    'desc' can contain a short string, describing the progress, that is added
-    in the beginning of the line.
-    'total' can give the number of expected iterations. If not given,
-    len(iterable) is used if it is defined.
-    If leave is False, tqdm deletes its traces from screen after it has finished
-    iterating over all elements.
-    If less than mininterval seconds or miniters iterations have passed since
-    the last progress meter update, it is not updated again.
-    """
+'''
 
-def trange(*args, **kwargs):
-    """A shortcut for writing tqdm(xrange)"""
-    return tqdm(xrange(*args), **kwargs)
-```
+The text is generated using a simplified language that allows you to:
+1) Randomly choose between different sentences
+2) Randomly fill in bits of sentences
+
+A bit of a specialized markup for this looks like
+
+'''
+
+animal
+  lion
+  tiger
+  bear
+  
+event
+  You see [animal.aAn]
+  
+'''
+
+This would generate sentences like "You see a bear"
+
+currently only limited grammar is implemented.  You can add ".aAn" to a word to prefix it
+with an appropriate choice of "a" or "an" and you can add ".plural" to convert something
+to plural (add "s", "es" or "ies" as appropriate).
+
+---
+
+Thanks:
+
+The code for generating the progress bar is from tqdm (https://github.com/noamraph/tqdm)
+
+
+---
+
+Lisence,
+
+All code is yours to use, modify and share under the MIT License
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
