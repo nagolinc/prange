@@ -3,7 +3,9 @@
 from distutils.core import setup
 import glob
 
-data_files=glob.glob('src/prange/data/*.txt')
+os.chdir("src")
+data_files=glob.glob('prange/data/*.txt')
+
 
 print data_files
 
