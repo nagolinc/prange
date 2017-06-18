@@ -3,7 +3,7 @@
 from distutils.core import setup
 import glob
 
-data_files=glob.glob('srs/prange/data/*.txt')
+data_files=glob.glob('data/*.txt')
 
 setup(name='prange',
       version='0.1',
@@ -11,8 +11,6 @@ setup(name='prange',
       author='Logan Zoellner',
       author_email='nagolinc@gmail.com',
       url='https://github.com/nagolinc/prange',
-      
-      packages=['prange'],
-      package_dir={'prange': 'src/prange'},
+      py_modules=['prange'],
       data_files=[('data',data_files)]
      )
