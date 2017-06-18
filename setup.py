@@ -3,7 +3,7 @@
 from distutils.core import setup
 import glob
 
-data_files=glob.glob('srs/prange/data/*.txt')
+data_files=glob.glob('src/prange/data/*.txt')
 
 print data_files
 
