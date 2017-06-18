@@ -5,6 +5,8 @@ import glob
 
 data_files=glob.glob('srs/prange/data/*.txt')
 
+print data_files
+
 setup(name='prange',
       version='0.1',
       description='A Complex Python Progress Meter',
@@ -14,5 +16,5 @@ setup(name='prange',
       
       packages=['prange'],
       package_dir={'prange': 'src/prange'},
-      data_files=[('data',data_files)]
+      data_files=[('prange/data',data_files)]
      )
