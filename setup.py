@@ -8,7 +8,7 @@ import glob
 #data_files=glob.glob('src/prange/data/*.txt')
 
 
-print data_files
+#print data_files
 
 setup(name='prange',
       version='0.1',
