@@ -1,1 +1,1 @@
-include src/prange/data/*.txt
+include src/prange/data/adventure.txt
