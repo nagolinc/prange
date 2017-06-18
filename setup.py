@@ -19,5 +19,7 @@ setup(name='prange',
       
       packages=['prange'],
       package_dir={'prange': 'src/prange'},
-      data_files=[('data',data_files)]
+      #data_files=[('data',data_files)]
+      package_data={  'prange': ['data/*.txt'] }
+      
      )
