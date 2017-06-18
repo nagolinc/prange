@@ -20,7 +20,7 @@ setup(name='prange',
       packages=['prange'],
       package_dir={'prange': 'src/prange'},
       #data_files=[('data',data_files)]
-      #package_data={  'prange': ['data/*.txt'] }
-      data_files=[('data', ['src/prange/data/commonNouns.txt', 'src/prange/data/adventure.txt'])]
+      package_data={  'prange': ['data/commonNouns.txt'] }
+      #data_files=[('data', ['src/prange/data/commonNouns.txt', 'src/prange/data/adventure.txt'])]
       
      )
