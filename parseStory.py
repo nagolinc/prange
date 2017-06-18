@@ -174,13 +174,49 @@ def aAn(s):
 	
 grammar=[GrammarRule("aAn",aAn),GrammarRule("plural",plural)]
 
+class EventRule:
+	def __init__(self):
+		self.outputs=["event"]
+	def canAct(self,obj,rules):
+		return getProperty("name",obj,rules)=="event"		
+	def act(self,obj,rules):
+		obj["event"]={"name":"event"}
+		
+
 
 #this code runs on import
 import os
 this_dir, this_filename = os.path.split(__file__)
-DATA_PATH = os.path.join(this_dir, "data", "adventure.txt")
-text=open(DATA_PATH).read()
-adventureRules=getDescriptionRules(text)+grammar
+DATA_PATH = os.path.join(this_dir, "data")
+
+adventureRules=grammar+[EventRule()]
+
+for fileName in os.listdir(DATA_PATH):
+	text=open(os.path.join(DATA_PATH,fileName)).read()
+	adventureRules+=getDescriptionRules(text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
