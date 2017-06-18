@@ -3,8 +3,8 @@
 from distutils.core import setup
 import glob
 
-os.chdir("src")
-data_files=glob.glob('prange/data/*.txt')
+#os.chdir("src")
+#data_files=glob.glob('prange/data/*.txt')
 #data_files=glob.glob('src/prange/data/*.txt')
 
 
@@ -20,6 +20,7 @@ setup(name='prange',
       packages=['prange'],
       package_dir={'prange': 'src/prange'},
       #data_files=[('data',data_files)]
-      package_data={  'prange': ['data/*.txt'] }
+      #package_data={  'prange': ['data/*.txt'] }
+      data_files=[('data', ['data/commonNouns.', 'data/adventure.txt'])]
       
      )
