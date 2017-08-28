@@ -1,4 +1,5 @@
 import random
+import os
 
 
 def parseDescriptions(text):
@@ -24,11 +25,13 @@ def parseDescriptions(text):
 		if len(line.strip())==0:
 			#empty lines start a new object
 			newObject()
-		elif line[0] in " 	":
+		elif line[0].isspace():
 			#whitespace starts a new description
 			currentRule["descriptions"]+=[line.strip()]
 		else:
 			currentRule["name"]=line.strip()
+			
+	newObject()
 	
 	return rules
 	
@@ -47,7 +50,7 @@ def getProperties(text):
 		else:
 			propType=propName
 		if len(l)>2:
-			overrides=l[2].split(",")
+			overrides=[x.split("=") for x in l[2].split(",") if "=" in x]
 		else:
 			overrides=[]
 		out+=[(propName,propType,overrides)]
@@ -80,7 +83,16 @@ class PropertyRule:
 	def act(self,obj,rules):
 		child={"parent":obj,"name":self.propType}
 		#print("adding child",child)
+		#handle overrides
+		for setProp,getProp in self.overrides:
+			if setProp=="":
+				child=dict(getProperty(getProp,obj,rules))
+			else:
+				setProperty(setProp,child,rules,getProperty(getProp,obj,rules))
+		#add child
 		obj[self.propName]=child
+		
+		
 		
 def getDescriptionRules(text):
 	out=[]
@@ -141,6 +153,14 @@ def getProperty(propName,obj,rules):
 	#fail
 	raise AttributeError
 	
+def setProperty(propName,obj,rules,value):
+	if "." in propName:
+		i=propName.index(".")
+		v=getProperty(propName[:i],obj,rules)
+		setProperty(propName[i+1:],v,rules,value)
+	else:
+		obj[propName]=value
+	
 
 
 class GrammarRule:
@@ -185,15 +205,18 @@ class EventRule:
 
 
 #this code runs on import
-import os
-this_dir, this_filename = os.path.split(__file__)
-DATA_PATH = os.path.join(this_dir, "data")
 
-adventureRules=grammar+[EventRule()]
+def getAdventureRules():
 
-for fileName in os.listdir(DATA_PATH):
-	text=open(os.path.join(DATA_PATH,fileName)).read()
-	adventureRules+=getDescriptionRules(text)
+	this_dir, this_filename = os.path.split(__file__)
+	DATA_PATH = os.path.join(this_dir, "data")
+
+	adventureRules=grammar+[EventRule()]
+
+	for fileName in os.listdir(DATA_PATH):
+		text=open(os.path.join(DATA_PATH,fileName)).read()
+		adventureRules+=getDescriptionRules(text)
+	return adventureRules
 
 
 

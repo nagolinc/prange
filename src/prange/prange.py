@@ -2,7 +2,7 @@ __all__ = ['tqdm', 'trange']
 
 import sys
 import time
-from parseStory import expandDescription,adventureRules
+from parseStory import expandDescription,getAdventureRules
 
 
 def format_interval(t):
